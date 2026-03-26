@@ -1,91 +1,143 @@
-# 🚀 Crypto Watchlist API (Full Stack)
+# Crypto Watchlist App
 
-# Overview
-A full-stack application built with FastAPI and Next.js that allows users to securely manage a crypto watchlist with real-time pricing.
+A full-stack application that allows users to securely manage a crypto watchlist with real-time pricing.
 
-# Tech Stack
- Backend
-- FastAPI
-- SQLAlchemy
-- SQLite (can be replaced with PostgreSQL)
-- JWT Authentication
-- Pydantic Validation
+---
 
- Frontend
-- Next.js (App Router)
-- Tailwind CSS
-- Axios
+## Live Demo
 
-# Features
-# Authentication
-- User Registration & Login
-- JWT-based authentication
-- Password hashing (bcrypt)
+Frontend: https://crypto-watchlist-app-bice.vercel.app/
+Backend: https://your-backend-url.onrender.com
 
-# Watchlist
-- Add coins
-- View watchlist
-- Delete coins
-- Fetch real-time prices (CoinGecko API)
+---
 
-# Security
-- Protected routes
-- Role-based access (admin)
-- Input validation
+## Overview
 
-# Backend Quality
-- API versioning (`/api/v1`)
-- Error handling with proper status codes
-- Logging
-- Modular architecture
+Users can:
 
-# Frontend
-- Clean dashboard UI
-- Protected routes
-- Loading states & error handling
+* Register & login securely 
+* Add/remove cryptocurrencies 
+* Track real-time prices via API 
 
-# API Endpoints
+---
 
-Auth
-- POST `/api/v1/auth/register`
-- POST `/api/v1/auth/login`
+## ⚙️ Tech Stack
 
- Watchlist
-- GET `/api/v1/watchlist/`
-- POST `/api/v1/watchlist/add`
-- DELETE `/api/v1/watchlist/{id}`
+### Backend
 
+* FastAPI
+* SQLAlchemy
+* SQLite (can be replaced with PostgreSQL)
+* JWT Authentication
+* Pydantic
 
-# Setup
+### Frontend
 
-Backend Setup-
-cd backend
+* Next.js (App Router)
+* Tailwind CSS
+* Axios
+
+---
+
+## Features
+
+### Authentication
+
+* User Registration & Login
+* JWT-based authentication
+* Password hashing (bcrypt)
+
+### Watchlist
+
+* Add coins
+* View watchlist
+* Delete coins
+* Real-time price fetching (CoinGecko API)
+
+### Security
+
+* Protected routes
+* Role-based access (admin)
+* Input validation
+
+---
+
+## API Endpoints
+
+### Auth
+
+* `POST /api/v1/auth/register`
+* `POST /api/v1/auth/login`
+
+### Watchlist
+
+* `GET /api/v1/watchlist/`
+* `POST /api/v1/watchlist/add`
+* `DELETE /api/v1/watchlist/{id}`
+
+---
+
+## Setup Instructions
+
+### Clone the repo
+
+```bash
+git clone https://github.com/your-username/crypto-watchlist-app.git
+cd crypto-watchlist-app
+```
+
+---
+
+## Backend Setup
+
+```bash
+cd crypto-backend
 python -m venv venv
-venv\Scripts\activate   # (Windows)
-# source venv/bin/activate  (Mac/Linux)
+venv\Scripts\activate   # Windows
+# source venv/bin/activate   # Mac/Linux
 
 pip install -r requirements.txt
 uvicorn app.main:app --reload
+```
 
-Backend will run on:
-👉 http://127.0.0.1:8000
+Runs on: http://127.0.0.1:8000
 
-Frontend Setup-
-cd frontend
+---
+
+## Frontend Setup
+
+```bash
+cd crypto-frontend
 npm install
 npm run dev
+```
 
-Frontend will run on:
-👉 http://localhost:3000
+Runs on: http://localhost:3000
 
-Running Tests
+---
+
+## Running Tests
+
+```bash
 pytest
+```
 
- Screenshots
+---
+
+## Deployment
+
+* Frontend → Vercel
+* Backend → Render
+
+---
+
+## Preview
+
+Screenshots
 ![Dashboard](./screenshot.png)
 
- Scalability Note
-The system is designed using a modular architecture, making it easy to scale into microservices. Authentication, watchlist, and external API services can be separated. For scalability, caching (Redis), load balancing, and database indexing can be introduced.
+🚀 Scalability Note
 
-👨‍💻 Author
-Tanushree Nerella
+The system is built using a modular architecture with clear separation of concerns, making it easy to scale and extend. API versioning (/api/v1) ensures backward compatibility.
+For scalability, caching (Redis), database optimization (PostgreSQL with indexing), and horizontal scaling using containers and load balancing can be introduced. External API calls can be optimized using asynchronous processing and retries.
+The frontend is decoupled from the backend, enabling independent scaling and deployment.
