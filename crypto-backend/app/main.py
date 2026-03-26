@@ -11,12 +11,14 @@ logging.basicConfig(
     format="%(asctime)s - %(levelname)s - %(message)s"
 )
 app = FastAPI(title="Crypto Watchlist API")
-Base.metadata.create_all(bind=engine)
-origins = [
-    "http://localhost:3000",
-    "http://127.0.0.1:3000",
-    "https://crypto-watchlist-app-bice.vercel.app"
-]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origin_regex=r"https://.*\.vercel\.app",
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 app.add_middleware(
     CORSMiddleware,
