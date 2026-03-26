@@ -4,8 +4,8 @@ pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 
 def hash_password(password: str):
-    return pwd_context.hash(password[:72])   # ✅ FIX bcrypt issue
+    return pwd_context.hash(password[:72])   # ✅ truncate
 
 
 def verify_password(plain, hashed):
-    return pwd_context.verify(plain, hashed)
+    return pwd_context.verify(plain[:72], hashed)  # ✅ FIX HERE
