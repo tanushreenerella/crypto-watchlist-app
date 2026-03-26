@@ -58,8 +58,34 @@ Auth
 
 # Setup
 
- Backend
-```bash
+Backend Setup-
 cd backend
+python -m venv venv
+venv\Scripts\activate   # (Windows)
+# source venv/bin/activate  (Mac/Linux)
+
 pip install -r requirements.txt
 uvicorn app.main:app --reload
+
+Backend will run on:
+👉 http://127.0.0.1:8000
+
+Frontend Setup-
+cd frontend
+npm install
+npm run dev
+
+Frontend will run on:
+👉 http://localhost:3000
+
+Running Tests
+pytest
+
+ Screenshots
+![Dashboard](./screenshot.png)
+
+ Scalability Note
+The system is designed using a modular architecture, making it easy to scale into microservices. Authentication, watchlist, and external API services can be separated. For scalability, caching (Redis), load balancing, and database indexing can be introduced.
+
+👨‍💻 Author
+Tanushree Nerella
