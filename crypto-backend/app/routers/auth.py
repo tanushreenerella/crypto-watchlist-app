@@ -18,34 +18,43 @@ def get_db():
 
 @router.post("/register")
 def register(data: RegisterRequest, db: Session = Depends(get_db)):
+    try:
+        existing_user = db.query(User).filter(User.email == data.email).first()
 
-    existing_user = db.query(User).filter(User.email == data.email).first()
-    if existing_user:
-        raise HTTPException(status_code=400, detail="User already exists")
+        if existing_user:
+            raise HTTPException(status_code=400, detail="User already exists")
 
-    user = User(
-        email=data.email,
-        password=hash_password(data.password),
-        role="user"
-    )
+        user = User(
+            email=data.email,
+            password=hash_password(data.password),
+            role="user"
+        )
 
-    db.add(user)
-    db.commit()
-    db.refresh(user)
+        db.add(user)
+        db.commit()
+        db.refresh(user)
 
-    return {"msg": "User created"}
+        return {"msg": "User created"}
+
+    except Exception as e:
+        print("REGISTER ERROR:", str(e))  # 🔥 THIS WILL SHOW REAL ERROR IN RENDER LOGS
+        raise HTTPException(status_code=500, detail=str(e))
 
 @router.post("/login")
 def login(data: LoginRequest, db: Session = Depends(get_db)):
+    try:
+        user = db.query(User).filter(User.email == data.email).first()
 
-    user = db.query(User).filter(User.email == data.email).first()
+        if not user or not verify_password(data.password, user.password):
+            raise HTTPException(status_code=401, detail="Invalid credentials")
 
-    if not user or not verify_password(data.password, user.password):
-        raise HTTPException(status_code=401, detail="Invalid credentials")
+        token = create_token({
+            "user_id": user.id,
+            "role": user.role
+        })
 
-    token = create_token({
-        "user_id": user.id,
-        "role": user.role
-    })
+        return {"access_token": token}
 
-    return {"access_token": token}
+    except Exception as e:
+        print("LOGIN ERROR:", str(e))
+        raise HTTPException(status_code=500, detail=str(e))
