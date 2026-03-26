@@ -15,7 +15,7 @@ Base.metadata.create_all(bind=engine)
 origins = [
     "http://localhost:3000",
     "http://127.0.0.1:3000",
-    "https://crypto-watchlist-app-bice.vercel.app/"
+    "https://crypto-watchlist-app-bice.vercel.app"
 ]
 
 app.add_middleware(
@@ -36,6 +36,3 @@ async def global_exception_handler(request: Request, exc: Exception):
         "error": "Internal Server Error",
         "message": str(exc)
     }
-@app.get("/")
-def root():
-    return {"message": "API is running 🚀"}
