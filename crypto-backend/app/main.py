@@ -36,3 +36,6 @@ async def global_exception_handler(request: Request, exc: Exception):
         "error": "Internal Server Error",
         "message": str(exc)
     }
+@app.get("/")
+def root():
+    return {"message": "API is running 🚀"}
