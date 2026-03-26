@@ -1,26 +1,30 @@
 import requests
-import logging
-
-logging.basicConfig(level=logging.INFO)
-
-URL = "https://api.coingecko.com/api/v3/simple/price"
 
 def get_coin_price(coin: str):
-    for attempt in range(3):   # retry 3 times
-        try:
-            logging.info(f"Attempt {attempt+1} for {coin}")
+    try:
+        coin = coin.lower().strip()
 
-            response = requests.get(
-                URL,
-                params={"ids": coin, "vs_currencies": "usd"},
-                timeout=5
-            )
+        url = "https://api.coingecko.com/api/v3/simple/price"
+        params = {
+            "ids": coin,
+            "vs_currencies": "usd"
+        }
 
-            data = response.json()
-            return data[coin]["usd"]
+        response = requests.get(url, params=params, timeout=5)
 
-        except requests.exceptions.Timeout:
-            logging.warning("Retrying due to timeout...")
+        print("STATUS:", response.status_code)
+        print("RESPONSE:", response.text)
 
-    logging.error("Failed after retries")
-    return None
+        if response.status_code != 200:
+            return None
+
+        data = response.json()
+
+        if coin not in data:
+            return None
+
+        return data[coin]["usd"]
+
+    except Exception as e:
+        print("ERROR FETCHING COIN:", e)
+        return None
