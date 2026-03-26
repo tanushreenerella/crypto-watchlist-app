@@ -14,7 +14,8 @@ app = FastAPI(title="Crypto Watchlist API")
 Base.metadata.create_all(bind=engine)
 origins = [
     "http://localhost:3000",
-    "http://127.0.0.1:3000"
+    "http://127.0.0.1:3000",
+    "https://crypto-watchlist-app-bice.vercel.app/"
 ]
 
 app.add_middleware(
