@@ -29,7 +29,9 @@ def register(data: RegisterRequest, db: Session = Depends(get_db)):
             password=hash_password(data.password),
             role="user"
         )
-
+        print("RAW PASSWORD:", repr(data.password))
+        print("TYPE:", type(data.password))
+        print("LEN:", len(str(data.password)))
         db.add(user)
         db.commit()
         db.refresh(user)
