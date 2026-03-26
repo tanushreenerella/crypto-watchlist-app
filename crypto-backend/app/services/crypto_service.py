@@ -12,8 +12,9 @@ def get_coin_price(coin: str):
 
         response = requests.get(url, params=params, timeout=5)
 
-        print("STATUS:", response.status_code)
-        print("RESPONSE:", response.text)
+        if response.status_code == 429:
+            print("RATE LIMITED 🚫")
+            return None
 
         if response.status_code != 200:
             return None
@@ -26,5 +27,5 @@ def get_coin_price(coin: str):
         return data[coin]["usd"]
 
     except Exception as e:
-        print("ERROR FETCHING COIN:", e)
+        print("ERROR:", e)
         return None
